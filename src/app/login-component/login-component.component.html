@@ -1,0 +1,52 @@
+<div class="login">
+    <div *ngIf="this.logare==true">
+        <label> Username</label>
+        <br>
+
+        <input type="text" [formControl]="inputUsername">
+        <br>
+
+        <label> Parola</label>
+        <br>
+
+        <input type="password" [formControl]="inputPassword">
+
+        <br>
+        <div *ngIf="this.error" class="error">
+            {{this.error}}
+        </div>
+        <br>
+
+        <button mat-raised-button type="button" color="primary" (click)="login()">Logare</button>
+        <br>
+        <a (click)="schimba()">Creare utilizator</a>
+    </div>
+    <div *ngIf="this.logare==false">
+        <label> Username</label>
+        <br>
+
+        <input type="text" [formControl]="inputUsername">
+        <br>
+
+        <label> Parola</label>
+        <br>
+
+        <input type="password" [formControl]="inputPassword">
+
+        <br>
+        <label> Email</label>
+        <br>
+
+        <input type="text" [formControl]="inputEmail">
+        
+        <br>
+        <div *ngIf="this.error" class="error">
+            {{this.error}}
+        </div>
+        <br>
+        <button mat-raised-button type="button" color="primary" (click)="creaza()">Creaza</button>
+        <br>
+        <a (click)="schimba()">Logare</a>
+    </div>
+
+</div>

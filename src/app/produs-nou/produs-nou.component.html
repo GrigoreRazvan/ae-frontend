@@ -1,0 +1,34 @@
+<div class="page">
+
+    <label> Denumire</label>
+    <br>
+
+    <input type="text" [formControl]="inputDenumire">
+    <br>
+
+    <label> Descriere</label>
+    <br>
+
+    <input type="text" [formControl]="inputDescriere">
+
+    <br>
+    <label> Pret</label>
+    <br>
+
+    <input type="text" [formControl]="inputPret">
+
+    <br>
+
+    <div *ngIf="this.error" class="error">
+        {{this.error}}
+    </div>
+    <br>
+    <div *ngIf="this.button=='creaza'">
+        <button mat-raised-button type="button" color="primary" (click)="creaza()">Creaza</button>
+    </div>
+    <div *ngIf="this.button=='editeaza'">
+        <button mat-raised-button type="button" color="primary" (click)="editeaza()">Editeaza</button>
+    </div>
+    <br>
+
+</div>
