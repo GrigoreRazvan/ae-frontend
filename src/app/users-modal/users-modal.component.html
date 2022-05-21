@@ -1,0 +1,55 @@
+<button mat-raised-button type="button" (click)="redirect_inapoi()" class="close_button">
+  x
+</button>
+
+<div>
+
+  <h1 *ngIf="!this.user">
+    Adauga Utilizator
+  </h1>
+
+  <h1 *ngIf="this.user">
+    Editeaza: {{this.user.username}}
+  </h1>
+
+  <div class="form_adaugare">
+
+  <input type="text" [formControl]="inputUsername" placeholder="Username">
+  <br>
+  <mat-error *ngIf="this.inputUsername.errors">
+    Username-ul este obligatoriu
+  </mat-error>
+  <br>
+
+  <input type="password" [formControl]="inputPassword" placeholder="Parola">
+  <br>
+  <mat-error *ngIf="this.inputPassword.errors">
+    Parola este obligatorie
+  </mat-error>
+  <br>
+
+  <input type="text" [formControl]="inputEmail" placeholder="Email">
+  <br>
+  <mat-error *ngIf="this.inputEmail.errors">
+    Email-ul este obligatoriu
+  </mat-error>
+  <br>
+
+  <select [formControl]="inputRole" placeholder="Role">
+    <option *ngFor="let role of this.UserRoles" value="{{role.roleId}}">
+        {{role.roleName}}
+    </option>
+  </select>
+  <br>
+  <mat-error *ngIf="this.inputRole.errors">
+    Rolul este obligatoriu
+  </mat-error>
+  <br>
+
+  <button mat-raised-button type="button" color="primary" (click)="adauga_editeaza_user()">
+    {{this.button_type}}
+  </button>
+
+  </div>
+
+</div>

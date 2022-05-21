@@ -1,0 +1,75 @@
+<div class="allPage">
+  <button mat-raised-button type="button" color="lightorange" (click)="redirect_inapoi()">
+    Inapoi
+  </button>
+  &nbsp;
+
+  <button mat-raised-button type="button" class="eliberare_masa" (click)="eliberare_masa(this.idMasa)"
+    *ngIf="this.Comanda">
+    Eliberare Masa
+  </button>
+
+  <br>
+  <br>
+
+  <h2>
+    Masa {{ this.idMasa }}
+
+    <button mat-raised-button type="button" color="lightorange" class="button_bon" (click)="bon_masa(this.idMasa)"
+      *ngIf="this.Comanda">
+      Bon masa
+    </button>
+  </h2>
+
+
+  <div class="main_masa">
+    <div class="lista_produse">
+      <div class="lista_produse_masa">
+        <table class="table_masa">
+          <thead>
+            <th>Cantitate</th>
+            <th>Denumire</th>
+            <th>Gramaj</th>
+            <th>Total Produs</th>
+            <th>Elimina Produsul</th>
+          </thead>
+          <tr class="test" *ngFor="let produs of this.Produse">
+            <td>
+              {{ produs.produsInter.cantitate }}
+            </td>
+            <td>
+              {{ produs.produs.nume }}
+            </td>
+            <td>
+              {{ produs.produs.gramaj }}
+            </td>
+            <td>
+              {{ produs.produs.pret * produs.produsInter.cantitate }}
+            </td>
+            <td>
+              <button mat-raised-button type="button" (click)="elimina_produs(produs.produsInter.idProdusInter)"
+                style="background-color: #FFB4B4; box-shadow:none !important; margin-bottom:5px; border-radius: 500px;">
+                <img src="assets/img/remove.png" style="height:15px;">
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <span *ngIf="this.Comanda">Total masa: {{this.Comanda.valoareComanda}} RON</span>
+      <div class="add_bautura">
+        <button mat-raised-button type="button" color="lightorange" (click)="openAdaugaPreparat('bautura')">
+
+          Adauga Bautura
+        </button>
+      </div>
+      <div class="add_mancare">
+        <button mat-raised-button type="button" color="lightorange" (click)="openAdaugaPreparat('mancare')">
+          Adauga Mancare
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

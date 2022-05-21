@@ -1,0 +1,151 @@
+<ng-container *ngIf="this.tip_meniu == 'b'">
+  <h1>Alege bautura</h1>
+
+  <div class="categorie_bautura">
+    <mat-form-field>
+      <mat-select
+        placeholder="Categorie Bautura"
+        (selectionChange)="on_change_categorie_bautura($event.value)"
+      >
+        <mat-option value="-1" selected>---</mat-option>
+        <mat-option
+          *ngFor="let categorie of this.categorie_bautura"
+          value="{{ categorie.idCategorie }}"
+          >{{ categorie.numeCategorie }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <br />
+
+  <div class="produse" *ngIf="this.produse">
+    <mat-form-field>
+      <mat-select
+        [formControl]="produseForm"
+        multiple
+        (selectionChange)="on_change_select_produse($event.value)"
+      >
+        <mat-select-trigger>
+          <span
+            *ngIf="produseForm.value?.length >= 1"
+            class="example-additional-selection"
+          >
+            {{ produseForm.value.length }}
+            {{ produseForm.value?.length > 1 ? "produse" : "produs" }}
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let produs of this.produse" [value]="produs">
+          {{ produs.nume }} ({{ produs.gramaj }})</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="lista_produse_alese">
+    <form [formGroup]="itemsFormGroup" novalidate>
+      <table>
+        <thead>
+          <th>Produs</th>
+          <th>Cantitate</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let produs of this.lista_produse; let i = index">
+            <td>{{ produs.nume }} ({{ produs.gramaj }})</td>
+            <td>
+              <input [formControlName]="'produs_input_' + i" />
+            </td>
+            <td>
+              <button
+                mat-raised-button
+                type="button"
+                (click)="elimina_produs_din_lista(produs.idProdus)"
+              >
+                x
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="this.tip_meniu == 'm'">
+  <h1>Alege Mancare</h1>
+
+  <div class="categorie_bautura">
+    <mat-form-field>
+      <mat-select
+        placeholder="Categorie Mancare"
+        (selectionChange)="on_change_categorie_mancare($event.value)"
+      >
+        <mat-option value="-1" selected>---</mat-option>
+        <mat-option
+          *ngFor="let categorie of this.categorie_mancare"
+          value="{{ categorie.idCategorie }}"
+          >{{ categorie.numeCategorie }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <br />
+
+  <div class="produse" *ngIf="this.produse">
+    <mat-form-field>
+      <mat-select
+        [formControl]="produseForm"
+        multiple
+        (selectionChange)="on_change_select_produse($event.value)"
+      >
+        <mat-select-trigger>
+          <span
+            *ngIf="produseForm.value?.length >= 1"
+            class="example-additional-selection"
+          >
+            {{ produseForm.value.length }}
+            {{ produseForm.value?.length > 1 ? "produse" : "produs" }}
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let produs of this.produse" [value]="produs">
+          {{ produs.nume }} ({{ produs.gramaj }})</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="lista_produse_alese">
+    <form [formGroup]="itemsFormGroup" novalidate>
+      <table>
+        <thead>
+          <th>Produs</th>
+          <th>Cantitate</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let produs of this.lista_produse; let i = index">
+            <td>{{ produs.nume }} ({{ produs.gramaj }})</td>
+            <td>
+              <input [formControlName]="'produs_input_' + i" />
+            </td>
+            <td>
+              <button
+                mat-raised-button
+                type="button"
+                (click)="elimina_produs_din_lista(produs.idProdus)"
+              >
+                x
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</ng-container>
+
+<div *ngIf="this.lista_produse.length>0">
+  <button mat-raised-button type="button" (click)="adauga_produse()">
+    Adauga Produsele
+  </button>
+</div>

@@ -1,14 +1,19 @@
 
 .close_button{
   float: right;
-  margin-top: -24px;
-  margin-right: -24px;
+  background-color: #FFB4B4;
+  color: #E04949;
+  font-size: 20px;
 }
 .form_adaugare{
   text-align: center;
   margin-top: 100px;
 }
 input {
+  width: 60%;
+  height: 30px;
+}
+select{
   width: 60%;
   height: 30px;
 }

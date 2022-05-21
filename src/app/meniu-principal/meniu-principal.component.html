@@ -1,0 +1,226 @@
+<div class="allPage">
+  <mat-tab-group selectedIndex=2>
+
+    <mat-tab label="Mese">
+
+      <div class="masa">
+        <ng-container *ngFor="let masa of this.Mese">
+          <button mat-raised-button type="button" color="lightorange"
+            [className]="masa.status==1 ? 'masa_ocupata' : 'masa_libera'"
+            (click)="selectare_masa(masa.id)">{{masa.denumire}}</button>
+        </ng-container>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Meniu" *ngIf="this.user.role==1 || this.user.role==2">
+      <h1>Meniu</h1>
+      <button mat-raised-button type="button" color="lightorange" (click)="set_categorii('bautura')">
+        Bauturi
+      </button>
+      &nbsp;
+      <button mat-raised-button type="button" color="lightorange" (click)="set_categorii('mancare')">
+        Preparate
+      </button>
+      <br>
+      <Br>
+      <div class="meniu">
+        <div class="categorii" *ngIf="this.categorie_mancare || this.categorie_bautura">
+          Categorii
+          <hr>
+
+          <ng-container *ngIf="this.categorie_bautura">
+            <ng-container *ngFor="let categorie of this.categorie_bautura">
+              <button mat-raised-button type="button" color="lightorange"
+                (click)="get_produse_categorie(categorie.idCategorie)">
+                {{categorie.numeCategorie}}
+              </button>
+              <br>
+              <br>
+            </ng-container>
+
+          </ng-container>
+
+          <ng-container *ngIf="this.categorie_mancare">
+            <ng-container *ngFor="let categorie of this.categorie_mancare">
+              <button mat-raised-button type="button" color="lightorange"
+                (click)="get_produse_categorie(categorie.idCategorie)">
+                {{categorie.numeCategorie}}
+              </button>
+              <br>
+              <br>
+            </ng-container>
+
+          </ng-container>
+
+        </div>
+        <div class="produse_meniu">
+          <ng-container *ngIf="this.produse_categorie">
+
+            <button mat-raised-button type="button" color="lightorange" (click)="adauga_la_meniu()"
+              class="button_adauga_la_meniu">
+              Adauga
+            </button>
+
+            <table class="table_meniu_produse">
+              <thead>
+                <th>
+                  Nume
+                </th>
+                <th>
+                  Descriere
+                </th>
+                <th>
+                  Gramaj
+                </th>
+                <th>
+                  Pret
+                </th>
+                <th>
+                  Actiune
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let produs of this.produse_categorie">
+                  <td>
+                    {{produs.nume}}
+                  </td>
+                  <td>
+                    {{produs.descriere}}
+                  </td>
+                  <td>
+                    {{produs.gramaj}}
+                  </td>
+                  <td>
+                    {{produs.pret}}
+                  </td>
+                  <td>
+                    <button type="button" class="editeaza-button"
+                      (click)="open_editeaza_produs(produs.idProdus)">
+                      <img src="assets/img/edit.png" style="height:15px; margin-right:5px">
+                      <span style="margin-bottom: 4px;">
+                        Editeaza
+                      </span>
+                    </button>
+                    &nbsp;
+                    <button type="button" class="sterge-button">
+                      <img src="assets/img/remove.png" style="height:15px; margin-right:5px">
+                      <span style="margin-bottom: 4px;">
+                        Stergere
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+
+        </div>
+      </div>
+      <!-- <ng-container *ngFor="let meniu of this.ProduseleMele">
+                    <hr>
+                    <div class="produs">
+                        <br>
+                        <b> Produs: {{produs.denumire}}</b>
+                        <br>
+                        Descriere: {{produs.descriere}}
+                        <br>
+                    <b>Pret: {{produs.pret}}</b>
+                    </div>
+                    <div class="buttons">
+                        <button mat-raised-button  type="button" color="lightorange" (click)="EditareProdus(produs.id)">Editare Produs</button>
+                        <button mat-raised-button  type="button" color="lightorange" (click)="StergereProdus(produs.id)">Stergere Produs</button>
+                    </div>
+                </ng-container> -->
+    </mat-tab>
+
+    <mat-tab label="Utilizatori" *ngIf="this.user.role==1 || this.user.role==2">
+
+      <br>
+
+      <button mat-raised-button type="button" color="lightorange" (click)="get_lista_users()">
+        Lista utilizatori
+      </button>
+      &nbsp;
+
+      <button mat-raised-button type="button" color="lightorange" (click)="adauga_utilizator()">
+        Adauga utilizator
+      </button>
+
+      <br>
+      <br>
+
+      <div *ngIf="this.Users">
+
+        <table class="user_table">
+          <thead style="text-align: left;">
+            <th>
+              User
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              Role
+            </th>
+            <th>
+              Actiune
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let userTable of this.Users;let i=index">
+              <td>
+                {{userTable.username}}
+              </td>
+              <td>
+                {{userTable.email}}
+              </td>
+              <td>
+                {{userTable.roleName}}
+              </td>
+              <td *ngIf="userTable.role!=1" style="display:flex; ">
+
+
+                <button type="button" class="editeaza-button" (click)="editeaza_utilizator(userTable.id)"
+                  *ngIf="this.user.role==1 || (userTable.role!=2 && this.user.role==2)">
+                  <img src="assets/img/edit.png" style="height:15px; margin-right:5px">
+                  <span style="margin-bottom: 4px;">
+                    Editeaza
+                  </span>
+                </button>
+
+                &nbsp;
+
+                <button type="button" class="sterge-button"
+                  (click)="stergere_utilizator(userTable.id,userTable.username)"
+                  *ngIf="this.user.role==1 || (userTable.role!=2 && this.user.role==2)">
+                  <img src="assets/img/remove.png" style="height:15px; margin-right:5px">
+                  <span style="margin-bottom: 4px;">
+                    Stergere
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Rapoarte" *ngIf="this.user.role==1 || this.user.role==2">
+
+      <br>
+
+      <button mat-raised-button type="button" color="lightorange" (click)="raport_vanzari_produse_zi()">
+        Vanzari produse zi
+      </button>
+      &nbsp;
+
+      <button mat-raised-button type="button" color="lightorange" (click)="raport_comenzi_zi()">
+        Raport comenzi zi
+      </button>
+      &nbsp;
+
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from "@angular/forms";
+import { FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 import { ApiServiceService } from '../_service/api-service.service';
 @Component({
@@ -8,11 +8,13 @@ import { ApiServiceService } from '../_service/api-service.service';
   styleUrls: ['./login-component.component.css']
 })
 export class LoginComponentComponent implements OnInit {
-  inputUsername = new FormControl("");
-  inputPassword = new FormControl("");
-  inputEmail = new FormControl("");
+  inputUsername = new FormControl("",[
+    Validators.required
+  ]);
+  inputPassword = new FormControl("",[
+    Validators.required
+  ]);
   error="";
-  logare=true;
   constructor(public apiService: ApiServiceService,public router:Router) { }
 
   ngOnInit(): void {
@@ -21,7 +23,7 @@ export class LoginComponentComponent implements OnInit {
   login(){
     if(this.inputUsername.value=="" || this.inputPassword.value=="")
     {
-      this.error="Completati campurile";
+      this.error="Introduceti utilizatorul si parola!";
       return;
     }
     var user={
@@ -30,38 +32,10 @@ export class LoginComponentComponent implements OnInit {
     }
 
     this.apiService.login(user).subscribe(resp=>{
-      console.log(resp);
-      if(resp!=null){
+      if(resp.length>0){
         this.error="";
-        localStorage.setItem("idUser",resp[0]['id']);
-        this.router.navigate([""]);
-      }else{
-        this.error="Username sau Parola incorecte."
-      }
-    })
-  }
-  schimba(){
-    this.logare=!this.logare;
-  }
-  creaza(){
-    if(this.inputUsername.value=="" || this.inputPassword.value=="")
-    {
-      this.error="Completati campurile";
-      return;
-    }
-    var user={
-      "Username":this.inputUsername.value,
-      "Password":this.inputPassword.value,
-      "Email":this.inputEmail.value
-    }
-    this.apiService.createUser(user).subscribe(resp=>{
-      console.log(resp);
-      if(resp[0]['returnMsg']=="done"){
-        this.error="";
-        this.logare=true;
-        this.inputUsername.setValue("");
-        this.inputPassword.setValue("");
-        this.inputEmail.setValue("");
+        localStorage.setItem("user",JSON.stringify(resp[0]));
+        this.router.navigate(["meniu/principal"]);
       }else{
         this.error="Username sau Parola incorecte."
       }

@@ -1,0 +1,126 @@
+.allPage {
+  margin-left: 100px;
+  width: 50%;
+}
+
+.masa_libera {
+  width: 130px;
+  height: 130px;
+  margin: 30px;
+  background-color: #D3FEA7;
+  border-radius: 5px;
+  border: 2px solid #629D27;
+  color: #629D27;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.masa_ocupata {
+  width: 130px;
+  height: 130px;
+  margin: 30px;
+  background-color: #FFB4B4;
+  border-radius: 5px;
+  border: 2px solid #E04949;
+  color: #E04949;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.editeaza-button {
+  color: #629D27;
+  box-shadow: none;
+  border: 0px;
+  background-color: transparent;
+  padding: 20px 15px;
+  display: flex;
+  align-items:center;
+}
+
+.sterge-button {
+  color: #E04949;
+  box-shadow: none;
+  border: 0px;
+  background-color: transparent;
+  padding: 20px 15px;
+  display: flex;
+  align-items: center;
+}
+
+mat-tab {
+
+  height: 104px;
+
+}
+
+.loginStatus {
+  float: right;
+  position: relative;
+}
+
+.masa {
+  display: block;
+}
+
+.meniu {
+  display: flex;
+}
+
+.categorii {
+  border-right: 2px solid;
+  overflow-y: auto;
+  height: 424px;
+  width: 210px;
+}
+
+.produse_meniu {
+  margin-left: 10px;
+  overflow-y: auto;
+  height: 424px;
+}
+
+.table_meniu_produse {
+  border: 1px solid;
+  width: 550px;
+  max-width: 100%;
+}
+
+.table_meniu_produse th{
+  text-align: center;
+  padding: 20px 0px;
+  color: #DD782F;
+}
+
+.table_meniu_produse td {
+  border-bottom: 1px solid;
+  text-align: center;
+}
+
+.button_adauga_la_meniu {
+  float: left;
+  max-height: 23%;
+  width: 30%;
+  margin-bottom: 15px;
+}
+
+.user_table {
+  border: 1px solid;
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+.user_table th{
+  text-align: center;
+  padding: 20px 0px;
+  color: #DD782F;
+}
+
+.user_table td {
+  border: 1px solid;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: #DD782F !important;
+}

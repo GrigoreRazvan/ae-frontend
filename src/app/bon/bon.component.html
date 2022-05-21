@@ -1,0 +1,52 @@
+<button mat-raised-button type="button" (click)="redirect_inapoi()">
+  Inapoi
+</button>
+&nbsp;
+<button mat-raised-button type="button" color="primary"
+[useExistingCss]="true" printSectionId="print-section" ngxPrint>
+    Printare bon
+  </button>
+
+<div class="allPage" *ngIf="this.Comanda" id="print-section">
+
+
+  <h1>
+    GIRAFFE RESTAURANT SRL
+    <br>
+    Mangalia, jud. Constanta
+    <br>
+    Bon fiscal nr: {{this.Comanda.idComanda}}
+    <br>
+    Masa: {{this.id_masa}}
+  </h1>
+
+  <hr>
+
+  <div class="produse" *ngIf="this.produse">
+    <table style="width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;">
+      <tr *ngFor="let produs of this.produse">
+          {{produs.produs.nume}}
+          <br>
+          {{produs.produsInter.cantitate}} * {{produs.produs.pret}} RON
+
+
+          <span class="pret_produs_final">
+            {{produs.produsInter.cantitate * produs.produs.pret}} RON
+          </span>
+
+          <hr>
+
+      </tr>
+    </table>
+  </div>
+
+  <div class="summary" *ngIf="this.Comanda && this.produse">
+    Total Produs: {{this.produse.length}}
+
+    <span style="float: right;">
+    Total: {{this.Comanda.valoareComanda}} RON
+    </span>
+  </div>
+</div>

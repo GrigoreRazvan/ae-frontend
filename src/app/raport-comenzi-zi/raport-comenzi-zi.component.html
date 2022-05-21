@@ -1,0 +1,76 @@
+<button mat-raised-button type="button" (click)="redirect_inapoi()" class="close_button">
+  x
+</button>
+
+<h1>
+  Raport Comenzi zi
+</h1>
+
+<mat-form-field appearance="fill">
+  <mat-label>Alege o data</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="dateSelect" (dateChange)="alegere_data()">
+  <mat-hint>DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+
+<div *ngIf="this.Comenzi && this.Comenzi.length==0">
+  Nu exista produse pe ziua respectiva
+</div>
+
+<div *ngIf="this.Comenzi && this.Comenzi.length != 0">
+  <button mat-raised-button type="button" color="primary" [useExistingCss]="true" printSectionId="print-section"
+    ngxPrint>
+    Printare raport
+  </button>
+
+  <div id="print-section">
+    <h2>
+      Raport comezi in ziua {{this.dateSelect.value | date:'dd-MM-yyyy'}}
+    </h2>
+    <table>
+      <thead>
+        <th>
+          Nr Comanda
+        </th>
+        <th>
+          Nr Masa
+        </th>
+        <th>
+          Ospatar
+        </th>
+        <th>
+          Valoare comanda
+        </th>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let comanda of this.Comenzi">
+          <tr>
+            <td>
+              {{comanda.idComanda}}
+            </td>
+            <td>
+              {{comanda.numarMasa}}
+            </td>
+            <td *ngIf="this.Ospatari[comanda.idOspatar]">
+              {{this.Ospatari[comanda.idOspatar].username}}
+            </td>
+            <td>
+              {{comanda.valoareComanda}}
+            </td>
+          </tr>
+        </ng-container>
+        <tr class="summary">
+          <td colspan="3">
+            Total
+          </td>
+          <td>
+            {{this.total_cost}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

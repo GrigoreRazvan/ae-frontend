@@ -1,52 +1,29 @@
 <div class="login">
-    <div *ngIf="this.logare==true">
-        <label> Username</label>
-        <br>
-
-        <input type="text" [formControl]="inputUsername">
-        <br>
-
-        <label> Parola</label>
-        <br>
-
-        <input type="password" [formControl]="inputPassword">
-
-        <br>
-        <div *ngIf="this.error" class="error">
-            {{this.error}}
-        </div>
-        <br>
-
-        <button mat-raised-button type="button" color="primary" (click)="login()">Logare</button>
-        <br>
-        <a (click)="schimba()">Creare utilizator</a>
+    <mat-form-field>
+        <mat-label>
+            Utilizator
+        </mat-label>
+        <input matInput placeholder="Utilizator" type="text" [formControl]="inputUsername">
+        <mat-error *ngIf="inputUsername.hasError('required')">
+            Campul este obligatoriu
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>
+            Parola
+        </mat-label>
+        <input matInput placeholder="Parola" type="password" [formControl]="inputPassword">
+        <mat-error *ngIf="inputPassword.hasError('required')">
+            Campul este obligatoriu
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <div class="error">
+        {{this.error}}
     </div>
-    <div *ngIf="this.logare==false">
-        <label> Username</label>
-        <br>
 
-        <input type="text" [formControl]="inputUsername">
-        <br>
-
-        <label> Parola</label>
-        <br>
-
-        <input type="password" [formControl]="inputPassword">
-
-        <br>
-        <label> Email</label>
-        <br>
-
-        <input type="text" [formControl]="inputEmail">
-        
-        <br>
-        <div *ngIf="this.error" class="error">
-            {{this.error}}
-        </div>
-        <br>
-        <button mat-raised-button type="button" color="primary" (click)="creaza()">Creaza</button>
-        <br>
-        <a (click)="schimba()">Logare</a>
-    </div>
+    <button mat-raised-button type="button" color="primary" (click)="login()">Logare</button>
+    <br>
 
 </div>

@@ -1,34 +1,48 @@
-<div class="page">
 
-    <label> Denumire</label>
+  <button mat-raised-button type="button" (click)="redirect_inapoi()" class="close_button">
+    x
+  </button>
+<div *ngIf="this.id_categorie || this.produs">
+
+    <h1 *ngIf="this.categorie">
+      Adauga: {{this.categorie['numeCategorie']}}
+    </h1>
+
+    <h1 *ngIf="this.produs">
+      Editeaza: {{this.produs.nume}}
+    </h1>
+
+    <div class="form_adaugare">
+
+    <input type="text" [formControl]="inputNume" placeholder="Nume Produs">
+    <br>
+    <mat-error *ngIf="this.inputNume.errors">
+      Numele este obligatoriu
+    </mat-error>
     <br>
 
-    <input type="text" [formControl]="inputDenumire">
+    <input type="text" [formControl]="inputDescriere" placeholder="Descriere Produs">
+    <br>
     <br>
 
-    <label> Descriere</label>
+    <input type="text" [formControl]="inputGramaj" placeholder="Gramaj Produs">
+    <br>
+    <mat-error *ngIf="this.inputGramaj.errors">
+      Gramajul este obligatoriu
+    </mat-error>
     <br>
 
-    <input type="text" [formControl]="inputDescriere">
-
+    <input type="number" [formControl]="inputPret" placeholder="Pret Produs">
     <br>
-    <label> Pret</label>
-    <br>
-
-    <input type="text" [formControl]="inputPret">
-
+    <mat-error *ngIf="this.inputPret.errors">
+      Pretul este obligatoriu
+    </mat-error>
     <br>
 
-    <div *ngIf="this.error" class="error">
-        {{this.error}}
+    <button mat-raised-button type="button" color="primary" (click)="adauga_editeaza_produs()">
+      {{this.button_type}}
+    </button>
+
     </div>
-    <br>
-    <div *ngIf="this.button=='creaza'">
-        <button mat-raised-button type="button" color="primary" (click)="creaza()">Creaza</button>
-    </div>
-    <div *ngIf="this.button=='editeaza'">
-        <button mat-raised-button type="button" color="primary" (click)="editeaza()">Editeaza</button>
-    </div>
-    <br>
 
 </div>

@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { MeniuPrincipalComponent } from '../meniu-principal/meniu-principal.component';
 import { ApiServiceService } from '../_service/api-service.service';
+import { NotificationServiceService } from '../_service/notification-service.service';
 
 @Component({
   selector: 'app-produs-nou',
@@ -10,65 +13,81 @@ import { ApiServiceService } from '../_service/api-service.service';
   styleUrls: ['./produs-nou.component.css']
 })
 export class ProdusNouComponent implements OnInit {
-  inputDenumire=new FormControl("");
-  inputDescriere=new FormControl("");
-  inputPret=new FormControl("");
-  
-  error="";
-  button="";
-  constructor(public http:HttpClient,public router:Router,public apiService:ApiServiceService) { }
+  inputNume = new FormControl("", [
+    Validators.required]);
+  inputDescriere = new FormControl("", [
+    Validators.required]);
+  inputGramaj = new FormControl("", [
+    Validators.required]);
+  inputPret = new FormControl("", [
+    Validators.required,
+    Validators.pattern("^[0-9]*$")]);
+
+  id_categorie: number;
+  categorie: any;
+  produs: any;
+  button_type: string;
+
+  constructor(
+    private notificationService: NotificationServiceService,
+    private apiService: ApiServiceService,
+    private dialog: MatDialogRef<MeniuPrincipalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data
+  ) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('editProdus')==null||localStorage.getItem('editProdus')==""){
-      this.button="creaza";
-      this.inputDenumire.setValue("");
-      this.inputDescriere.setValue("");
-      this.inputPret.setValue("");
-      
-    }else{
-      this.button="editeaza";
-      this.apiService.getProdusSingle(localStorage.getItem('editProdus')).subscribe(resp=>{
-        this.inputDenumire.setValue(resp[0]['denumire']);
-        this.inputDescriere.setValue(resp[0]['descriere']);
-        this.inputPret.setValue(resp[0]['pret']);
+    this.button_type = this.data['button_type'];
+    if (this.data['id_categorie']) {
+      this.id_categorie = this.data['id_categorie'];
+      this.apiService.get_info_categorie(this.id_categorie).subscribe(val => {
+        this.categorie = val[0];
+
+      })
+    }
+    if (this.data['id_produs']) {
+      this.apiService.get_produs(this.data['id_produs']).subscribe(val => {
+        this.produs = val[0];
+        this.inputNume.setValue(this.produs.nume)
+        this.inputDescriere.setValue(this.produs.descriere)
+        this.inputGramaj.setValue(this.produs.gramaj)
+        this.inputPret.setValue(this.produs.pret)
+      })
+    }
+
+  }
+
+  adauga_editeaza_produs() {
+    var produs;
+    if (this.categorie) {
+        produs = {
+        IdCategorie: this.id_categorie,
+        Nume: this.inputNume.value,
+        Descriere: this.inputDescriere.value,
+        Gramaj: this.inputGramaj.value,
+        Pret: this.inputPret.value
+      };
+      this.apiService.add_produs(produs).subscribe(val => {
+        this.notificationService.showMessage(val, "Inchide");
+        this.redirect_inapoi();
+      })
+    }
+    if(this.produs){
+        produs = {
+        IdProdus:this.produs.idProdus,
+        IdCategorie: this.produs.idCategorie,
+        Nume: this.inputNume.value,
+        Descriere: this.inputDescriere.value,
+        Gramaj: this.inputGramaj.value,
+        Pret: this.inputPret.value
+      };
+      this.apiService.editeaza_produs(produs).subscribe(val=>{
+        this.notificationService.showMessage(val,'Inchide');
+        this.redirect_inapoi();
       })
     }
   }
 
-  creaza(){
-    var produs={
-      "Denumire":this.inputDenumire.value,
-      "Descriere":this.inputDescriere.value,
-      "DataAdaugare":new Date(),
-      "AdaugatDe":parseInt(localStorage.getItem('idUser')),
-      "Pret":parseInt(this.inputPret.value),
-    }
-    this.apiService.createProdus(produs).subscribe(resp=>{
-      if(resp[0]['returnMsg']=="done"){
-        this.router.navigate([""]);
-      }else
-      {
-        this.error=resp[0]['returnMsg'];
-      }
-    })
-  }
-  editeaza(){
-    var produs={
-      "Id":parseInt(localStorage.getItem('editProdus')),
-      "Denumire":this.inputDenumire.value,
-      "Descriere":this.inputDescriere.value,
-      "DataAdaugare":new Date(),
-      "AdaugatDe":parseInt(localStorage.getItem('idUser')),
-      "Pret":parseInt(this.inputPret.value),
-    }
-    this.apiService.editProdus(produs).subscribe(resp=>{
-      if(resp[0]['returnMsg']=="done"){
-        this.router.navigate([""]);
-        localStorage.setItem('editProdus',"");
-      }else
-      {
-        this.error=resp[0]['returnMsg'];
-      }
-    })
+  redirect_inapoi() {
+    this.dialog.close();
   }
 }

@@ -1,0 +1,82 @@
+<button mat-raised-button type="button" (click)="redirect_inapoi()" class="close_button">
+  x
+</button>
+
+<h1>
+  Raport vanzari produse zi
+</h1>
+
+<mat-form-field appearance="fill">
+  <mat-label>Alege o data</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="dateSelect" (dateChange)="alegere_data()">
+  <mat-hint>DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+
+<div *ngIf="this.Produse && this.Produse.length==0">
+  Nu exista produse pe ziua respectiva
+</div>
+
+<div *ngIf="this.Produse && this.Produse.length != 0">
+  <button mat-raised-button type="button" color="primary" [useExistingCss]="true" printSectionId="print-section"
+    ngxPrint>
+    Printare raport
+  </button>
+
+  <div id="print-section">
+    <h2>
+      Raport vanzari produse in ziua {{this.dateSelect.value | date:'dd-MM-yyyy'}}
+    </h2>
+    <table>
+      <thead>
+        <th>
+          Produs
+        </th>
+        <th>
+          Nr Comanda
+        </th>
+        <th>
+          Cantitate
+        </th>
+        <th>
+          Pret
+        </th>
+        <th>
+          Cost total
+        </th>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let produs of this.Produse">
+          <tr>
+            <td>
+              {{produs.produs.nume}}
+            </td>
+            <td>
+              {{produs.produsInter.idComanda}}
+            </td>
+            <td>
+              {{produs.produsInter.cantitate}}
+            </td>
+            <td>
+              {{produs.produs.pret}}
+            </td>
+            <td>
+              {{produs.produs.pret * produs.produsInter.cantitate}}
+            </td>
+          </tr>
+        </ng-container>
+        <tr class="summary">
+          <td colspan="4">
+            Total
+          </td>
+          <td>
+            {{this.total_cost}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

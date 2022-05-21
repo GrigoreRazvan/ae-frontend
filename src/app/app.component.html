@@ -1,5 +1,12 @@
-<div class="title">
-E-COMMERCE
-</div>
+<div style="display: flex;width: 100%;align-items: center;">
+  <div class="title">
 
+    <a href="meniu/principal"> <img src="../assets/img/logo.png" width="10%"> </a>
+
+  </div>
+  <div *ngIf="this.user!=null" class="loginStatus">
+    <span>{{this.user['username']}}</span>
+    <button type="button" class="logout-button" (click)="Delogare()">Delogare</button>
+  </div>
+</div>
 <router-outlet></router-outlet>
