@@ -27,26 +27,6 @@
   font-weight: 700;
 }
 
-.editeaza-button {
-  color: #629D27;
-  box-shadow: none;
-  border: 0px;
-  background-color: transparent;
-  padding: 20px 15px;
-  display: flex;
-  align-items:center;
-}
-
-.sterge-button {
-  color: #E04949;
-  box-shadow: none;
-  border: 0px;
-  background-color: transparent;
-  padding: 20px 15px;
-  display: flex;
-  align-items: center;
-}
-
 mat-tab {
 
   height: 104px;
@@ -101,24 +81,6 @@ mat-tab {
   max-height: 23%;
   width: 30%;
   margin-bottom: 15px;
-}
-
-.user_table {
-  border: 1px solid;
-  width: 100%;
-  max-width: 100%;
-  border-collapse: collapse;
-  padding: 10px;
-}
-
-.user_table th{
-  text-align: center;
-  padding: 20px 0px;
-  color: #DD782F;
-}
-
-.user_table td {
-  border: 1px solid;
 }
 
 ::ng-deep .mat-ink-bar {

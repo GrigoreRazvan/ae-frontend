@@ -19,10 +19,26 @@ export class MeniuPrincipalComponent implements OnInit {
   user: any;
   Users: any;
   UserRoles: any;
+  categorie:any;
   categorie_mancare: any;
   categorie_bautura: any;
   produse_categorie: any;
   id_categorie: number;
+
+  //chart 1
+  title_chart_mese = 'Nr comenzi pe mese';
+  type_chart_mese = 'ColumnChart';
+  data_chart_mese = [
+     ["2012", 900],
+     ["2013", 1000],
+     ["2014", 1170],
+     ["2015", 1250],
+     ["2016", 1530]
+  ];
+  columnNames_chart_mese = ['Year', 'Asia'];
+  options_chart_mese = {};
+  width_chart_mese = 550;
+  height_chart_mese = 400;
 
   constructor(
     public router: Router,
@@ -48,7 +64,8 @@ export class MeniuPrincipalComponent implements OnInit {
 
 
     //for test
-    this.get_lista_users();
+    // this.get_lista_users();
+    // this.get_produse_categorie(1);
     // this.get_lista_users();
     // this.adauga_utilizator();
     // this.set_categorii('bautura');
@@ -112,6 +129,7 @@ export class MeniuPrincipalComponent implements OnInit {
   }
 
   set_categorii(categorie) {
+    this.categorie=categorie;
     if (categorie == 'bautura') {
       this.apiService.get_categorie_bauturi().subscribe(val => {
         this.categorie_bautura = val;
@@ -166,10 +184,6 @@ export class MeniuPrincipalComponent implements OnInit {
     });
   }
 
-  Delogare() {
-    localStorage.clear();
-    location.reload();
-  }
 
   //rapoarte
   raport_vanzari_produse_zi() {
@@ -195,5 +209,22 @@ export class MeniuPrincipalComponent implements OnInit {
     this.dialog.afterAllClosed.subscribe(val => {
       this.ngOnInit()
     });
+  }
+
+  get_charts(){
+  var title = 'Population (in millions)';
+  var type = 'ColumnChart';
+  var data = [
+      ["2012", 900],
+      ["2013", 1000],
+      ["2014", 1170],
+      ["2015", 1250],
+      ["2016", 1530]
+   ];
+   var columnNames = ['Year', 'Asia'];
+   var options = {};
+   var width = 550;
+   var height = 400;
+
   }
 }

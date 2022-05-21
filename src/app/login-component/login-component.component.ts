@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 import { ApiServiceService } from '../_service/api-service.service';
 @Component({
   selector: 'app-login-component',
@@ -35,7 +36,8 @@ export class LoginComponentComponent implements OnInit {
       if(resp.length>0){
         this.error="";
         localStorage.setItem("user",JSON.stringify(resp[0]));
-        this.router.navigate(["meniu/principal"]);
+        // this.router.navigate(["meniu/principal"]);
+        location.reload();
       }else{
         this.error="Username sau Parola incorecte."
       }

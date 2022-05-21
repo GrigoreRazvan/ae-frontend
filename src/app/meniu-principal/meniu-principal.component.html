@@ -1,5 +1,5 @@
 <div class="allPage">
-  <mat-tab-group selectedIndex=2>
+  <mat-tab-group selectedIndex=0>
 
     <mat-tab label="Mese">
 
@@ -12,13 +12,15 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Meniu" *ngIf="this.user.role==1 || this.user.role==2">
+    <mat-tab label="Meniu" *ngIf="this.user.role==1 || this.user.role==2" (click)="set_categorii('bautura')">
       <h1>Meniu</h1>
-      <button mat-raised-button type="button" color="lightorange" (click)="set_categorii('bautura')">
+      <button type="button" (click)="set_categorii('bautura')"
+        [className]="this.categorie=='bautura' ? 'light-button' : 'logout-button'">
         Bauturi
       </button>
       &nbsp;
-      <button mat-raised-button type="button" color="lightorange" (click)="set_categorii('mancare')">
+      <button type="button" (click)="set_categorii('mancare')"
+        [className]="this.categorie=='mancare' ? 'light-button' : 'logout-button'">
         Preparate
       </button>
       <br>
@@ -29,26 +31,25 @@
           <hr>
 
           <ng-container *ngIf="this.categorie_bautura">
-            <ng-container *ngFor="let categorie of this.categorie_bautura">
-              <button mat-raised-button type="button" color="lightorange"
-                (click)="get_produse_categorie(categorie.idCategorie)">
-                {{categorie.numeCategorie}}
-              </button>
-              <br>
-              <br>
-            </ng-container>
+            <mat-radio-group aria-label="Select an option">
+              <ng-container *ngFor="let categorie of this.categorie_bautura">
+                <mat-radio-button (click)="get_produse_categorie(categorie.idCategorie)"
+                  value={{categorie.idCategorie}}>{{categorie.numeCategorie}}</mat-radio-button>
+                <br>
+                <br>
+              </ng-container>
+            </mat-radio-group>
 
           </ng-container>
 
           <ng-container *ngIf="this.categorie_mancare">
             <ng-container *ngFor="let categorie of this.categorie_mancare">
-              <button mat-raised-button type="button" color="lightorange"
-                (click)="get_produse_categorie(categorie.idCategorie)">
-                {{categorie.numeCategorie}}
-              </button>
+              <mat-radio-button (click)="get_produse_categorie(categorie.idCategorie)" value={{categorie.idCategorie}}>
+                {{categorie.numeCategorie}}</mat-radio-button>
               <br>
               <br>
             </ng-container>
+
 
           </ng-container>
 
@@ -61,7 +62,7 @@
               Adauga
             </button>
 
-            <table class="table_meniu_produse">
+            <table>
               <thead>
                 <th>
                   Nume
@@ -94,8 +95,7 @@
                     {{produs.pret}}
                   </td>
                   <td>
-                    <button type="button" class="editeaza-button"
-                      (click)="open_editeaza_produs(produs.idProdus)">
+                    <button type="button" class="editeaza-button" (click)="open_editeaza_produs(produs.idProdus)">
                       <img src="assets/img/edit.png" style="height:15px; margin-right:5px">
                       <span style="margin-bottom: 4px;">
                         Editeaza
@@ -151,7 +151,7 @@
 
       <div *ngIf="this.Users">
 
-        <table class="user_table">
+        <table>
           <thead style="text-align: left;">
             <th>
               User
@@ -177,7 +177,7 @@
               <td>
                 {{userTable.roleName}}
               </td>
-              <td *ngIf="userTable.role!=1" style="display:flex; ">
+              <td *ngIf="userTable.role!=1">
 
 
                 <button type="button" class="editeaza-button" (click)="editeaza_utilizator(userTable.id)"
@@ -198,6 +198,9 @@
                     Stergere
                   </span>
                 </button>
+              </td>
+              <td *ngIf="userTable.role==1" style="height:15px;">
+                &nbsp;
               </td>
             </tr>
           </tbody>
@@ -220,6 +223,15 @@
       </button>
       &nbsp;
 
+
+    </mat-tab>
+
+    <mat-tab label="Statistici" *ngIf="this.user.role==1 || this.user.role==2" (click)="get_charts()">
+      test
+      <google-chart #chart [title]="title_chart_mese" [type]="type_chart_mese" [data]="data_chart_mese"
+        [columnNames]="columnNames_chart_mese" [options]="options_chart_mese" [width]="width_chart_mese"
+        [height]="height_chart_mese">
+      </google-chart>
 
     </mat-tab>
   </mat-tab-group>

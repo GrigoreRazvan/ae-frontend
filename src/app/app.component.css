@@ -25,12 +25,3 @@ a:visited{
   color: #DD782F;
   margin-right: 10px;
 }
-.logout-button{
-  border: 2px solid #DD782F;
-  color: #DD782F;
-  background-color: transparent;
-  padding: 10px 25px;
-  font-size: 15px;
-  font-weight: bold;
-  border-radius: 500px;
-}

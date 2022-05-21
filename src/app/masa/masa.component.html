@@ -25,7 +25,7 @@
   <div class="main_masa">
     <div class="lista_produse">
       <div class="lista_produse_masa">
-        <table class="table_masa">
+        <table>
           <thead>
             <th>Cantitate</th>
             <th>Denumire</th>
@@ -33,7 +33,7 @@
             <th>Total Produs</th>
             <th>Elimina Produsul</th>
           </thead>
-          <tr class="test" *ngFor="let produs of this.Produse">
+          <tr *ngFor="let produs of this.Produse">
             <td>
               {{ produs.produsInter.cantitate }}
             </td>

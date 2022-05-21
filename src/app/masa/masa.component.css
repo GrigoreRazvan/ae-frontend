@@ -7,10 +7,6 @@ h1 {
   overflow-y: hidden;
 }
 
-.lista_produse_masa {
-  border: solid 2px;
-}
-
 .lista_produse {
   margin-right: 10%;
 }
@@ -27,21 +23,6 @@ h1 {
 .add_bautura {
   margin-top: 20px;
 }
-
-.table_masa {
-  width: 700px;
-}
-
-.table_masa th {
-  text-align: center;
-  padding: 20px 0px;
-  color: #DD782F;
-}
-
-.table_masa td {
-  text-align: center;
-}
-
 .eliberare_masa {
   margin: 30px;
   background-color: #FFB4B4;

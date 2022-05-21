@@ -16,3 +16,76 @@ body {
   box-shadow: none !important;
   padding: 5px 25px !important
 }
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color:#DD782F;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+  color:#DD782F;
+  background-color:#DD782F ;
+}
+
+
+table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+table th{
+  text-align: left;
+  padding: 20px 25px;
+  color: black;
+}
+table thead{
+  border: 2px solid #D8D8D8;
+  border-radius: 5px;
+  background-color: #F2F2F2;
+}
+
+table td {
+  text-align: left;
+  border-bottom: 1px solid #D8D8D8;
+  height: 50px;
+  padding: 0px 25px;
+}
+
+.editeaza-button {
+  color: #629D27;
+  box-shadow: none;
+  border: 0px;
+  background-color: transparent;
+  /* padding: 20px 15px; */
+  align-items:center;
+}
+
+.sterge-button {
+  color: #E04949;
+  box-shadow: none;
+  border: 0px;
+  background-color: transparent;
+  /* padding: 20px 15px; */
+  align-items: center;
+}
+
+.logout-button{
+  border: 2px solid #DD782F;
+  color: #DD782F;
+  background-color: transparent;
+  padding: 10px 25px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 500px;
+}
+.light-button{
+  background-color: #F4C5A3;
+  color: #DD782F;
+  border-radius: 500px !important;
+  box-shadow: none !important;
+  border: 2px solid #DD782F;
+  padding: 10px 25px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 500px;
+}

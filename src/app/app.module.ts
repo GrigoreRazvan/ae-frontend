@@ -26,6 +26,10 @@ import { MatDatepicker, MatDatepickerModule,  } from '@angular/material/datepick
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { RaportComenziZiComponent } from './raport-comenzi-zi/raport-comenzi-zi.component';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +62,9 @@ import { RaportComenziZiComponent } from './raport-comenzi-zi/raport-comenzi-zi.
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
-    ReactiveFormsModule
+    MatRadioModule,
+    ReactiveFormsModule,
+    GoogleChartsModule.forRoot()
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },DatePipe],
   bootstrap: [AppComponent]
