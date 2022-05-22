@@ -25,26 +25,49 @@ body {
   background-color:#DD782F ;
 }
 
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #DD782F;
+}
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #DD782F;
+}
+mat-form-field span.mat-form-field-label-wrapper label {
+  color:#DD782F !important;
+}
 
-table {
+mat-form-field.mat-focused span.mat-form-field-label-wrapper label {
+  color:#DD782F !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: #DD782F;
+}
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow{
+  color: #DD782F;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple{
+  background-color:  #DD782F;
+}
+.table_custom {
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
   padding: 10px;
 }
 
-table th{
+.table_custom th{
   text-align: left;
   padding: 20px 25px;
   color: black;
 }
-table thead{
+.table_custom thead{
   border: 2px solid #D8D8D8;
   border-radius: 5px;
   background-color: #F2F2F2;
 }
 
-table td {
+.table_custom td {
   text-align: left;
   border-bottom: 1px solid #D8D8D8;
   height: 50px;
@@ -88,4 +111,20 @@ table td {
   font-size: 15px;
   font-weight: bold;
   border-radius: 500px;
+}
+.close_button{
+  color: #E04949;
+  box-shadow: none;
+  border: 0px;
+  background-color: transparent;
+  margin-right: 80px;
+}
+
+.form_adaugare{
+  text-align: center;
+  margin-top: 45px;
+}
+
+.mat-datepicker-toggle-active {
+  color: #DD782F;
 }

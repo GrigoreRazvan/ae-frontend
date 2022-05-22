@@ -136,4 +136,8 @@ export class AdaugaProduseDialogComponent implements OnInit {
 
     });
   }
+
+  redirect_inapoi() {
+    this.dialog.close();
+  }
 }

@@ -1,7 +1,3 @@
-
-  <button mat-raised-button type="button" (click)="redirect_inapoi()" class="close_button">
-    x
-  </button>
 <div *ngIf="this.id_categorie || this.produs">
 
     <h1 *ngIf="this.categorie">
@@ -16,7 +12,7 @@
 
     <input type="text" [formControl]="inputNume" placeholder="Nume Produs">
     <br>
-    <mat-error *ngIf="this.inputNume.errors">
+    <mat-error *ngIf="this.inputNume.value==''">
       Numele este obligatoriu
     </mat-error>
     <br>
@@ -27,19 +23,22 @@
 
     <input type="text" [formControl]="inputGramaj" placeholder="Gramaj Produs">
     <br>
-    <mat-error *ngIf="this.inputGramaj.errors">
+    <mat-error *ngIf="this.inputGramaj.value==''">
       Gramajul este obligatoriu
     </mat-error>
     <br>
 
     <input type="number" [formControl]="inputPret" placeholder="Pret Produs">
     <br>
-    <mat-error *ngIf="this.inputPret.errors">
+    <mat-error *ngIf="this.inputPret.value==''">
       Pretul este obligatoriu
     </mat-error>
     <br>
 
-    <button mat-raised-button type="button" color="primary" (click)="adauga_editeaza_produs()">
+
+    <button type="button" class="close_button" (click)="redirect_inapoi()">Anuleaza</button>
+
+    <button mat-raised-button type="button" color="lightorange" (click)="adauga_editeaza_produs()">
       {{this.button_type}}
     </button>
 

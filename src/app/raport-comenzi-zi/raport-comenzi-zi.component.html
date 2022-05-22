@@ -1,6 +1,5 @@
-<button mat-raised-button type="button" (click)="redirect_inapoi()" class="close_button">
-  x
-</button>
+<button type="button" class="close_button" (click)="redirect_inapoi()">Anuleaza</button>
+
 
 <h1>
   Raport Comenzi zi
@@ -20,7 +19,7 @@
 </div>
 
 <div *ngIf="this.Comenzi && this.Comenzi.length != 0">
-  <button mat-raised-button type="button" color="primary" [useExistingCss]="true" printSectionId="print-section"
+  <button mat-raised-button type="button" color="lightorange" [useExistingCss]="true" printSectionId="print-section"
     ngxPrint>
     Printare raport
   </button>

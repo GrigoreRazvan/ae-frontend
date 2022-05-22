@@ -64,6 +64,9 @@ export class MeniuPrincipalComponent implements OnInit {
 
 
     //for test
+    // this.set_categorii('mancare');
+    // this.get_produse_categorie(1);
+    // this.adauga_utilizator();
     // this.get_lista_users();
     // this.get_produse_categorie(1);
     // this.get_lista_users();
@@ -93,7 +96,7 @@ export class MeniuPrincipalComponent implements OnInit {
   adauga_utilizator() {
     const dialogRef = this.dialog.open(UsersModalComponent, {
       width: "600px",
-      height: "500px",
+      height: "400px",
       data: {
         button_type: 'Adauga'
       }
@@ -159,7 +162,7 @@ export class MeniuPrincipalComponent implements OnInit {
   adauga_la_meniu() {
     const dialogRef = this.dialog.open(ProdusNouComponent, {
       width: "600px",
-      height: "500px",
+      height: "400px",
       data: {
         id_categorie: this.id_categorie,
         button_type: 'Adauga'
@@ -184,12 +187,17 @@ export class MeniuPrincipalComponent implements OnInit {
     });
   }
 
+  StergereProdus(id){
+    this.apiService.stergereProdus(id).subscribe(val=>{
+      this.notificationService.showMessage(val,'Inchide');
+    })
+  }
 
   //rapoarte
   raport_vanzari_produse_zi() {
     const dialogRef = this.dialog.open(RaportVanzariProduseZiComponent, {
       width: "600px",
-      height: "500px",
+      height: "800px",
       data: {
         button_type: 'Adauga'
       }

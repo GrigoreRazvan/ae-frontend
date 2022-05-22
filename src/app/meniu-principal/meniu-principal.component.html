@@ -1,5 +1,5 @@
 <div class="allPage">
-  <mat-tab-group selectedIndex=0>
+  <mat-tab-group selectedIndex=3>
 
     <mat-tab label="Mese">
 
@@ -62,7 +62,7 @@
               Adauga
             </button>
 
-            <table>
+            <table class="table_custom">
               <thead>
                 <th>
                   Nume
@@ -102,7 +102,7 @@
                       </span>
                     </button>
                     &nbsp;
-                    <button type="button" class="sterge-button">
+                    <button type="button" class="sterge-button" (click)="StergereProdus(produs.id)">
                       <img src="assets/img/remove.png" style="height:15px; margin-right:5px">
                       <span style="margin-bottom: 4px;">
                         Stergere
@@ -151,7 +151,7 @@
 
       <div *ngIf="this.Users">
 
-        <table>
+        <table class="table_custom">
           <thead style="text-align: left;">
             <th>
               User

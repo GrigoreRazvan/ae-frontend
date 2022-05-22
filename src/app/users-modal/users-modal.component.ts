@@ -61,7 +61,7 @@ export class UsersModalComponent implements OnInit {
         id:this.user.id,
         email: this.inputEmail.value,
         password: this.inputPassword.value,
-        role: this.inputRole.value,
+        role: parseInt(this.inputRole.value),
         username: this.inputUsername.value
       }
       this.apiService.UpdateUser(user).subscribe(val=>{
@@ -73,7 +73,7 @@ export class UsersModalComponent implements OnInit {
       user={
         email: this.inputEmail.value,
         password: this.inputPassword.value,
-        role: this.inputRole.value,
+        role: parseInt(this.inputRole.value),
         username: this.inputUsername.value
       }
       this.apiService.AddUser(user).subscribe(val=>{

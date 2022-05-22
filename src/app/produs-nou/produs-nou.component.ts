@@ -53,7 +53,6 @@ export class ProdusNouComponent implements OnInit {
         this.inputPret.setValue(this.produs.pret)
       })
     }
-
   }
 
   adauga_editeaza_produs() {

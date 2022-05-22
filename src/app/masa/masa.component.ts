@@ -39,7 +39,7 @@ export class MasaComponent implements OnInit {
         // Defaults to 0 if no query param provided.
         // this.page = +params['page'] || 0;
       });
-    // this.openAdaugaPreparat('mancare');
+      // this.openAdaugaPreparat('bautura')
   }
 
   bon_masa(id){
