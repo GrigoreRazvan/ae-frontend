@@ -1,5 +1,5 @@
 <div class="allPage">
-  <mat-tab-group selectedIndex=3>
+  <mat-tab-group #tabGroup selectedIndex=4 (selectedTabChange)="tabChanged($event)">
 
     <mat-tab label="Mese">
 
@@ -12,7 +12,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Meniu" *ngIf="this.user.role==1 || this.user.role==2" (click)="set_categorii('bautura')">
+    <mat-tab label="Meniu" *ngIf="this.user.role==1 || this.user.role==2">
       <h1>Meniu</h1>
       <button type="button" (click)="set_categorii('bautura')"
         [className]="this.categorie=='bautura' ? 'light-button' : 'logout-button'">
@@ -226,11 +226,36 @@
 
     </mat-tab>
 
-    <mat-tab label="Statistici" *ngIf="this.user.role==1 || this.user.role==2" (click)="get_charts()">
-      test
-      <google-chart #chart [title]="title_chart_mese" [type]="type_chart_mese" [data]="data_chart_mese"
-        [columnNames]="columnNames_chart_mese" [options]="options_chart_mese" [width]="width_chart_mese"
-        [height]="height_chart_mese">
+    <mat-tab label="Statistici" *ngIf="this.user.role==1 || this.user.role==2">
+
+      <br>
+
+      <button mat-raised-button type="button" color="lightorange" (click)="this.show_charts='mese'">
+        Grafice mese
+      </button>
+
+      <button mat-raised-button type="button" color="lightorange" (click)="this.show_charts='comenzi'" style="margin-left: 10px;">
+        Grafice Comenzi
+      </button>
+
+      <google-chart #chartComenziMese [title]="title_chart_mese" [type]="type_chart_mese" [data]="data_chart_mese"
+        [columns]="columnNames_chart_mese" [options]="options_chart_mese" [width]="width_chart_mese"
+        [height]="height_chart_mese" *ngIf="this.show_charts=='mese'">
+      </google-chart>
+
+      <google-chart #chartValoareMese [title]="title_chart_valoare_mese" [type]="type_chart_valoare_mese" [data]="data_chart_valoare_mese"
+        [columns]="columnNames_valoare_chart_mese" [options]="options_chart_valoare_mese" [width]="width_chart_valoare_mese"
+        [height]="height_chart_valoare_mese" *ngIf="this.show_charts=='mese'">
+      </google-chart>
+
+      <google-chart #chartValoareMese [title]="title_chart_comenzi_pe_zi" [type]="type_chart_comenzi_pe_zi" [data]="data_chart_comenzi_pe_zi"
+        [columns]="columnNames_chart_comenzi_pe_zi" [options]="options_chart_comenzi_pe_zi" [width]="width_chart_comenzi_pe_zi"
+        [height]="height_chart_comenzi_pe_zi" *ngIf="this.show_charts=='comenzi'">
+      </google-chart>
+
+      <google-chart #chartValoareMese [title]="title_chart_vanzari_pe_zi" [type]="type_chart_vanzari_pe_zi" [data]="data_chart_vanzari_pe_zi"
+        [columns]="columnNames_chart_vanzari_pe_zi" [options]="options_chart_vanzari_pe_zi" [width]="width_chart_vanzari_pe_zi"
+        [height]="height_chart_vanzari_pe_zi" *ngIf="this.show_charts=='comenzi'">
       </google-chart>
 
     </mat-tab>

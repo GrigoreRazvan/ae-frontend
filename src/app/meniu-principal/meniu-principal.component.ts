@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import { ProdusNouComponent } from '../produs-nou/produs-nou.component';
 import { RaportComenziZiComponent } from '../raport-comenzi-zi/raport-comenzi-zi.component';
@@ -19,32 +21,88 @@ export class MeniuPrincipalComponent implements OnInit {
   user: any;
   Users: any;
   UserRoles: any;
-  categorie:any;
+  categorie: any;
   categorie_mancare: any;
   categorie_bautura: any;
   produse_categorie: any;
   id_categorie: number;
+  show_charts:string;
 
-  //chart 1
-  title_chart_mese = 'Nr comenzi pe mese';
+  //chart comenzi mese
+  title_chart_mese = 'Nr total comenzi pe mese';
   type_chart_mese = 'ColumnChart';
-  data_chart_mese = [
-     ["2012", 900],
-     ["2013", 1000],
-     ["2014", 1170],
-     ["2015", 1250],
-     ["2016", 1530]
-  ];
-  columnNames_chart_mese = ['Year', 'Asia'];
-  options_chart_mese = {};
-  width_chart_mese = 550;
+  data_chart_mese = [];
+  columnNames_chart_mese = ['Nr Masa', 'Numar Comenzi'];
+  options_chart_mese = {
+    colors: ['#DD782F'],
+    chartArea: {
+      left: 60,
+      top: 30,
+      width: '65%',
+      height: '50%'
+    }
+  };
+  width_chart_mese = 655;
   height_chart_mese = 400;
+
+  //chart valoare mese
+  title_chart_valoare_mese = 'Valoare totala comenzi pe mese';
+  type_chart_valoare_mese = 'ColumnChart';
+  data_chart_valoare_mese = [];
+  columnNames_valoare_chart_mese = ['Nr Masa', 'Valoare Comanda'];
+  options_chart_valoare_mese = {
+    colors: ['#FFB4B4'],
+    chartArea: {
+      left: 60,
+      top: 30,
+      width: '50%',
+      height: '50%'
+    }
+  };
+  width_chart_valoare_mese = 950;
+  height_chart_valoare_mese = 400;
+
+  //chart comenzi pe zi
+  title_chart_comenzi_pe_zi = 'Numar comenzi pe zile';
+  type_chart_comenzi_pe_zi = 'LineChart';
+  data_chart_comenzi_pe_zi = [];
+  columnNames_chart_comenzi_pe_zi = ['Data', 'Numar Comenzi'];
+  options_chart_comenzi_pe_zi = {
+    colors: ['#FFB4B4'],
+    chartArea: {
+      left: 60,
+      top: 30,
+      width: '50%',
+      height: '50%'
+    }
+  };
+  width_chart_comenzi_pe_zi = 950;
+  height_chart_comenzi_pe_zi = 400;
+
+  //chart vanzari pe zi
+  title_chart_vanzari_pe_zi = 'Vanzari pe zile';
+  type_chart_vanzari_pe_zi = 'LineChart';
+  data_chart_vanzari_pe_zi = [];
+  columnNames_chart_vanzari_pe_zi = ['Data', 'Vanzari'];
+  options_chart_vanzari_pe_zi = {
+    colors: ['#FFB4B4'],
+    chartArea: {
+      left: 60,
+      top: 30,
+      width: '50%',
+      height: '50%'
+    }
+  };
+  width_chart_vanzari_pe_zi = 950;
+  height_chart_vanzari_pe_zi = 400;
+
 
   constructor(
     public router: Router,
     public apiService: ApiServiceService,
     public dialog: MatDialog,
-    public notificationService: NotificationServiceService) { }
+    public notificationService: NotificationServiceService,
+    public datePipe:DatePipe) { }
 
   ngOnInit(): void {
 
@@ -64,6 +122,7 @@ export class MeniuPrincipalComponent implements OnInit {
 
 
     //for test
+    this.get_charts();
     // this.set_categorii('mancare');
     // this.get_produse_categorie(1);
     // this.adauga_utilizator();
@@ -72,6 +131,12 @@ export class MeniuPrincipalComponent implements OnInit {
     // this.get_lista_users();
     // this.adauga_utilizator();
     // this.set_categorii('bautura');
+  }
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    switch(tabChangeEvent.index){
+      case 1: this.set_categorii('bautura');break;
+      case 4: this.get_charts();break;
+    }
   }
   selectare_masa(id) {
     this.router.navigate(['meniu/masa', id]);
@@ -132,7 +197,7 @@ export class MeniuPrincipalComponent implements OnInit {
   }
 
   set_categorii(categorie) {
-    this.categorie=categorie;
+    this.categorie = categorie;
     if (categorie == 'bautura') {
       this.apiService.get_categorie_bauturi().subscribe(val => {
         this.categorie_bautura = val;
@@ -187,9 +252,9 @@ export class MeniuPrincipalComponent implements OnInit {
     });
   }
 
-  StergereProdus(id){
-    this.apiService.stergereProdus(id).subscribe(val=>{
-      this.notificationService.showMessage(val,'Inchide');
+  StergereProdus(id) {
+    this.apiService.stergereProdus(id).subscribe(val => {
+      this.notificationService.showMessage(val, 'Inchide');
     })
   }
 
@@ -219,20 +284,62 @@ export class MeniuPrincipalComponent implements OnInit {
     });
   }
 
-  get_charts(){
-  var title = 'Population (in millions)';
-  var type = 'ColumnChart';
-  var data = [
-      ["2012", 900],
-      ["2013", 1000],
-      ["2014", 1170],
-      ["2015", 1250],
-      ["2016", 1530]
-   ];
-   var columnNames = ['Year', 'Asia'];
-   var options = {};
-   var width = 550;
-   var height = 400;
+  get_charts() {
+    //chart Comenzi masa
+    this.apiService.get_chart_comenzi_mese().subscribe(val => {
+      var datas = [];
+      val.forEach(element => {
+        if (datas.filter(x => x.masa == element['numarMasa']).length == 0) {
+          datas.push({ 'masa': element['numarMasa'], 'comenzi': 1 });
+          // console.log(element['numarMasa'],datas);
+        }
+        else {
+          datas.filter(x => x.masa == element['numarMasa'])[0]['comenzi']++;
+        }
+      });
+      datas.forEach(element => {
+        this.data_chart_mese.push(['Masa '+element['masa'],element['comenzi']]);
+      });
+    });
 
+    //chart valoare totala comenzi mese
+    this.apiService.get_chart_valoare_comenzi_mese().subscribe(val => {
+      var datas = [];
+      val.forEach(element => {
+        if (datas.filter(x => x.masa == element['numarMasa']).length == 0) {
+          datas.push({ 'masa': element['numarMasa'], 'valoareComanda': element['valoareComanda'] });
+          // console.log(element['numarMasa'],datas);
+        }
+        else {
+          datas.filter(x => x.masa == element['numarMasa'])[0]['valoareComanda']+=element['valoareComanda'];
+        }
+      });
+      datas.forEach(element => {
+        this.data_chart_valoare_mese.push(['Masa '+element['masa'],element['valoareComanda']]);
+      });
+    });
+
+    //chart comenzi pe zile
+    this.apiService.get_chart_comenzi_pe_zile().subscribe(val => {
+      var datas = [];
+      var datas_vanzari=[];
+      val.forEach(element => {
+        if (datas.filter(x => x.dataComanda == this.datePipe.transform(element['dataComanda'],"dd/MM/yyyy")).length == 0) {
+          datas.push({ 'dataComanda': this.datePipe.transform(element['dataComanda'],"dd/MM/yyyy"), 'comenzi': 1 });
+          datas_vanzari.push({ 'dataComanda': this.datePipe.transform(element['dataComanda'],"dd/MM/yyyy"), 'valoareComanda': element['valoareComanda'] });
+        }
+        else {
+          datas.filter(x => x.dataComanda == this.datePipe.transform(element['dataComanda'],"dd/MM/yyyy"))[0]['comenzi']++;
+          datas_vanzari.filter(x => x.dataComanda == this.datePipe.transform(element['dataComanda'],"dd/MM/yyyy"))[0]['valoareComanda']+=element['valoareComanda'];
+        }
+      });
+      datas.forEach(element => {
+        this.data_chart_comenzi_pe_zi.push([element['dataComanda'],element['comenzi']]);
+      });
+      datas_vanzari.forEach(element => {
+        this.data_chart_vanzari_pe_zi.push([element['dataComanda'],element['valoareComanda']]);
+      });
+      console.log(this.data_chart_vanzari_pe_zi);
+    });
   }
 }

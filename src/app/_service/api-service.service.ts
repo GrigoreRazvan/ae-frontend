@@ -99,4 +99,13 @@ export class ApiServiceService {
   stergereProdus(id){
     return this.http.get<any>(this.apiUrl+"/Products/DeleteProdus/"+id,this.headers);
   }
+  get_chart_comenzi_mese(){
+    return this.http.get<any>(this.apiUrl+"/Mese/ChartComenziMese",this.headers);
+  }
+  get_chart_valoare_comenzi_mese(){
+    return this.http.get<any>(this.apiUrl+"/Mese/ChartValoareComenziMese",this.headers);
+  }
+  get_chart_comenzi_pe_zile(){
+    return this.http.get<any>(this.apiUrl+"/Mese/ChartComenziPeZile",this.headers);
+  }
 }
